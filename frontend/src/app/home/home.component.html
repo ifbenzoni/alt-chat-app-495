@@ -1,0 +1,25 @@
+<div>
+    <label><b>Username: </b></label>
+    <input type='text' placeholder='Enter Username' [(ngModel)]='inputNameAcc' required>
+</div>
+<div>
+    <label><b>Password: </b></label>
+    <input class='center' type='password' placeholder='Enter Password' [(ngModel)]='inputPasswordAcc' required>
+</div>
+<button class='center' (click)='createAcc(inputNameAcc, inputPasswordAcc)'>create account</button>
+
+<div>
+    <label><b>Username: </b></label>
+    <input type='text' placeholder='Enter Username' [(ngModel)]='inputName' required>
+</div>
+<div>
+    <label><b>Password: </b></label>
+    <input class='center' type='password' placeholder='Enter Password' [(ngModel)]='inputPassword' required>
+</div>
+<button class='center' (click)='login(inputName, inputPassword)'>login</button>
+<button class='center' (click)='logout()'>logout</button>
+<nav *ngIf="hasNameJwt">
+    <p>logged in</p>
+    <a routerLink='/dash'>Dashboard</a>
+</nav>
+<p *ngIf="!hasNameJwt">logged out</p>

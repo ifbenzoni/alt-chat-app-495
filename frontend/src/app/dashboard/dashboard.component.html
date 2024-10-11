@@ -1,0 +1,64 @@
+<p>Name: {{name}}</p>
+<p>
+    <span>Notifications Enabled: {{notifications}}</span>
+    <button (click)="editSettings()">toggle</button>
+</p>
+
+<div>
+    <label><b>Title: </b></label>
+    <input type='text' placeholder='Enter Title' [(ngModel)]='inputChatTitle' required>
+</div>
+<button class='center' (click)='createChat(inputChatTitle)'>create chat</button>
+
+<div>
+    <label>My Chats:</label>
+    <select [(ngModel)]="currentOwnedChat">
+        <option *ngFor="let chat of myChats" [ngValue]="chat">{{ chat.title }}</option>
+    </select>
+</div>
+<div>
+    <label><b>Add Participant: </b></label>
+    <input type='text' placeholder='Enter Participant Name' [(ngModel)]='addParticipant' required>
+</div>
+<button class='center' (click)='updateChat(currentOwnedChat.id, currentOwnedChat.title, 
+    currentOwnedChat.participants, currentOwnedChat.history)'>update chat</button>
+
+<div>
+    <label>Participant Chats:</label>
+    <select [(ngModel)]="currentMemberChat">
+        <option *ngFor="let chat of participantChats" [ngValue]="chat">{{ chat.title }}</option>
+    </select>
+</div>
+<button class='center' (click)='connectWS()'>connect</button>
+
+<div>
+    <label>Current Chat:</label>
+    <ul>
+        <li *ngFor="let message of chatDisplay">
+            {{ message }}
+        </li>
+    </ul>
+</div>
+<div>
+    <label><b>Message: </b></label>
+    <input type='text' placeholder='Enter Message' [(ngModel)]='currentMessage' required>
+</div>
+<button class='center' (click)='sendMessage(currentMessage)'>send</button>
+
+<div>
+    <label>History:</label>
+    <ul>
+        <li *ngFor="let message of chatHistory">
+            {{ message }}
+        </li>
+    </ul>
+</div>
+<div>
+    <label><b>Search Text: </b></label>
+    <input type='text' placeholder='Enter Text' [(ngModel)]='filterText' required>
+</div>
+<button class='center' (click)='searchHistory(filterText)'>search</button>
+
+<nav>
+    <a routerLink='/'>Home</a>
+</nav>
