@@ -80,7 +80,7 @@ public class UserController {
 	 * get user details based on jwt name, removes pw
 	 */
 	@GetMapping("/userDetails")
-	public ResponseEntity<User> userDetails(@RequestHeader("token") String token) {
+	public ResponseEntity<?> userDetails(@RequestHeader("token") String token) {
         String name;
 		try {
             String jwtCheckEndpoint = "http://localhost:8080/user/jwtName";
@@ -88,7 +88,7 @@ public class UserController {
             System.out.println(response.getBody());
             name = response.getBody();
         } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>("invalid jwt (or connection issues)", HttpStatus.INTERNAL_SERVER_ERROR);
         }
 		User find = new User();
 		find.setName(name);
@@ -111,7 +111,7 @@ public class UserController {
             ResponseEntity<String> response = restTemplate.postForEntity(jwtCheckEndpoint, token, String.class);
             name = response.getBody();
         } catch (Exception e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>("invalid jwt (or connection issues)", HttpStatus.INTERNAL_SERVER_ERROR);
         }
         User find = new User();
 		find.setName(name);

@@ -43,11 +43,11 @@ public class ChatController {
 	@PostMapping("/create")
     ResponseEntity<String> createChat (@RequestBody Chat chat, @RequestHeader("token") String token) {
 		try {
-            String jwtCheckEndpoint = "http://localhost:8080/user/jwtName";
+            String jwtCheckEndpoint = "http://user-server:8080/user/jwtName";
             ResponseEntity<String> response = restTemplate.postForEntity(jwtCheckEndpoint, token, String.class);
             System.out.println(response.getBody());
         } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>("invalid jwt (or connection issues)", HttpStatus.INTERNAL_SERVER_ERROR);
         }
 		Chat ret = chatService.addChat(chat);
 		return new ResponseEntity<>(new Gson().toJson(ret.getTitle() + " added"), HttpStatus.OK);
@@ -59,7 +59,7 @@ public class ChatController {
 	@GetMapping("/chatDetails/{name}")
 	public ResponseEntity<List<Chat>> chatDetails (@PathVariable("name") String name, @RequestHeader("token") String token) {
         try {
-            String jwtCheckEndpoint = "http://localhost:8080/user/jwtName";
+            String jwtCheckEndpoint = "http://user-server:8080/user/jwtName";
             ResponseEntity<String> response = restTemplate.postForEntity(jwtCheckEndpoint, token, String.class);
             System.out.println(response.getBody());
         } catch (Exception e) {
@@ -87,7 +87,7 @@ public class ChatController {
 	@GetMapping("/search/{id}/{text}")
 	public ResponseEntity<List<String>> search (@PathVariable("id") int id, @PathVariable("text") String text, @RequestHeader("token") String token) {
         try {
-            String jwtCheckEndpoint = "http://localhost:8080/user/jwtName";
+            String jwtCheckEndpoint = "http://user-server:8080/user/jwtName";
             ResponseEntity<String> response = restTemplate.postForEntity(jwtCheckEndpoint, token, String.class);
             System.out.println(response.getBody());
         } catch (Exception e) {
@@ -124,7 +124,7 @@ public class ChatController {
 	public ResponseEntity<Chat> postToChat (@PathVariable("id") Long id, @RequestBody String text, @RequestHeader("token") String token) {
         String name = "";
 		try {
-            String jwtCheckEndpoint = "http://localhost:8080/user/jwtName";
+            String jwtCheckEndpoint = "http://user-server:8080/user/jwtName";
             ResponseEntity<String> response = restTemplate.postForEntity(jwtCheckEndpoint, token, String.class);
             name = response.getBody();
         } catch (Exception e) {

@@ -55,7 +55,7 @@ export class DashboardComponent {
         this.chatDetails(this.name);
       },
       error: (error: HttpErrorResponse) => {
-        alert(error.message);
+        alert(error.error);
       }
     })
   }
@@ -72,7 +72,7 @@ export class DashboardComponent {
         this.checkDetails();
       },
       error: (error: HttpErrorResponse) => {
-        alert(error.message);
+        alert(error.error);
       }
     })
   }
@@ -89,7 +89,7 @@ export class DashboardComponent {
         this.chatDetails(this.name);
       },
       error: (error: HttpErrorResponse) => {
-        alert(error.message);
+        alert(error.error);
       }
     })
   }

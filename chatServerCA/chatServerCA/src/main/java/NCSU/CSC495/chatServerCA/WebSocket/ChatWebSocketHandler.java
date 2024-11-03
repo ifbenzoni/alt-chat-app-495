@@ -45,7 +45,7 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
         //get name contained in jwt
         String name = "";
         try {
-            String jwtCheckEndpoint = "http://localhost:8080/user/jwtName";
+            String jwtCheckEndpoint = "http://user-server:8080/user/jwtName";
             ResponseEntity<String> response = restTemplate.postForEntity(jwtCheckEndpoint, token, String.class);
             if (response.getStatusCode().is2xxSuccessful()) {
                 name = response.getBody();
@@ -144,7 +144,7 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
     private boolean validateJwtToken(String token) {
         try {
             // Call external endpoint to validate the JWT
-            String jwtCheckEndpoint = "http://localhost:8080/user/jwtName";
+            String jwtCheckEndpoint = "http://user-server:8080/user/jwtName";
             ResponseEntity<String> response = restTemplate.postForEntity(jwtCheckEndpoint, token, String.class);
 
             if (response.getStatusCode().is2xxSuccessful()) {
